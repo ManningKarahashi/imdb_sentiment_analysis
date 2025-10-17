@@ -3,7 +3,7 @@ from torch.utils.data import Dataset
 from torch.nn.utils.rnn import pad_sequence
 
 class IMDBDataset(Dataset):                                                                     
-    def __init__(self, df, vocab=None, max_length=256):
+    def __init__(self, df, vocab = None, max_length = 256):
         self.texts = df['review'].values                                                        # Extract the review text column as a NumPy array
         self.labels = df['sentiment'].map({'positive': 1, 'negative': 0}).values                # Map 'positive' to 1 and 'negative' to 0
         self.max_length = max_length                                                            # Maximum token length for truncation/padding
