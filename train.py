@@ -32,13 +32,11 @@ def train_model(model, train_loader, device, epochs = 5, lr = 0.001, save_path =
         print(f"Model saved to {save_path}")
 
 if __name__ == "__main__":
-    if torch.cuda.is_available():
-        device = torch.device("cuda")                                                           # Use GPU if available
-        print(f"CUDA device name: {torch.cuda.get_device_name(torch.cuda.current_device())}")
-    elif torch.backends.mps.is_available():
-        device = torch.device("mps")                                                            # Use MPS if CUDA not available
-    else:
-        device = torch.device("cpu")                                                            # Otherwise, CPU
+    device = (
+        torch.device("cuda") if torch.cuda.is_available()
+        else torch.device("mps") if torch.backends.mps.is_available()
+        else torch.device("cpu")
+    )
     print(f"Using device: {device}")
 
     base_dir = os.path.dirname(os.path.abspath(__file__))                                       # Ensures file paths are relative to script location instead of terminal's directory 
